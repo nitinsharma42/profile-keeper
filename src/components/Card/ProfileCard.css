@@ -1,0 +1,39 @@
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    background-color: #F7F7F6;
+}
+
+.container {
+    padding: 10px;
+    text-align: left;
+    background-color: #fff;
+    h4 {
+        margin: 0.5rem 0;
+    }
+    p {
+        margin: 0.2rem 0;
+    }
+    font-size: 0.8rem;
+}
+
+.avatar {
+    width: 100px;
+    border-radius: 50%;
+}
+
+.profile-actions {
+    display: flex;
+    justify-content: space-around;
+    padding: 10px;
+    button {
+        padding: 0;
+        cursor: pointer;
+        border: none;
+    }
+}
+
+.profile-entry {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}

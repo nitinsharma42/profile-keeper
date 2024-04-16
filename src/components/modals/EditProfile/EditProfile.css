@@ -1,0 +1,45 @@
+.form-control {
+    margin-bottom: 1rem;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+
+    input {
+        padding: 0.5rem;
+        border-radius: 0.5rem;
+    }
+}
+
+.form-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    h4 {
+        flex-grow: 2;
+    }
+    border-bottom: 1px solid #ccc;
+}
+
+.error {
+    font-size: 0.8rem;
+    color: red;
+    grid-column-start: 2;
+}
+
+.close-btn {
+    border: none;
+    cursor: pointer;
+}
+
+.form-action {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    justify-content: center;
+    button {
+        padding: 5px 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        background-color: #fff;
+    }
+}
