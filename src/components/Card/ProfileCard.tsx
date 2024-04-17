@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { User } from "../../types/Users";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import EditIcon from "@mui/icons-material/Edit";
@@ -11,7 +10,7 @@ import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 
-import "./ProfileCard.css";
+import { User } from "../../types/Users";
 
 type CardProps = {
   user: User;
@@ -27,36 +26,62 @@ export default function ProfileCard({
   const { username, name, email, phone, address, website, company } = user;
   const [like, setLike] = useState(false);
   return (
-    <Card sx={{ maxWidth: 345 }}>
-      <div className="w-full h-24">
+    <Card
+      sx={{
+        maxWidth: 345,
+        display: "flex",
+        flexDirection: "column",
+      }}
+    >
+      <div className="flex justify-center bg-gray-100">
         <CardMedia
-          image={`https://api.dicebear.com/8.x/pixel-art/svg?seed=${username}`}
-          title="avatar"
+          component="img"
+          sx={{ width: "50%" }}
+          image={`https://api.dicebear.com/8.x/avataaars/svg?seed=${username}`}
+          alt="avatar"
         />
       </div>
       <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
+        <Typography gutterBottom component="div">
           {name}
         </Typography>
-        <Typography variant="body2" color="text.secondary">
-          <span className="profile-entry">
-            <p>{email}</p>
-          </span>
-          <span className="profile-entry">
-            <p>{phone}</p>
-          </span>
-          <span className="profile-entry">
-            <p>{address.city}</p>
-          </span>
-          <span className="profile-entry">
-            <p>{website}</p>
-          </span>
-          <span className="profile-entry">
-            <p>{company.name}</p>
-          </span>
+        <Typography
+          variant="body2"
+          color="text.secondary"
+          sx={{ textAlign: "left" }}
+        >
+          {email}
+        </Typography>
+        <Typography
+          variant="body2"
+          color="text.secondary"
+          sx={{ textAlign: "left" }}
+        >
+          {phone}
+        </Typography>
+        <Typography
+          variant="body2"
+          color="text.secondary"
+          sx={{ textAlign: "left" }}
+        >
+          {address.city}
+        </Typography>
+        <Typography
+          variant="body2"
+          color="text.secondary"
+          sx={{ textAlign: "left" }}
+        >
+          {website}
+        </Typography>
+        <Typography
+          variant="body2"
+          color="text.secondary"
+          sx={{ textAlign: "left" }}
+        >
+          {company.name}
         </Typography>
       </CardContent>
-      <CardActions className="flex justify-center items-center">
+      <CardActions className="flex justify-center items-center grow-1 bg-gray-100">
         <Button className="like-btn" onClick={() => setLike(!like)}>
           {like ? <FavoriteIcon /> : <FavoriteBorderIcon />}
         </Button>

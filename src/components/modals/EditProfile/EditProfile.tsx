@@ -1,26 +1,26 @@
 import { useContext } from "react";
 import { Formik, Form, ErrorMessage, FormikProps, Field } from "formik";
 import * as Yup from "yup";
-import { User, FormData } from "../../../types/Users";
-import { ProfileContext, ProfileContextType } from "../../../pages/Profile";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
-import "./EditProfile.css";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
+
+import { FormData } from "../../../types/Users";
+import { ProfileContext, ProfileContextType } from "../../../pages/Profile";
 import FormField from "../../FormField/FormField";
+import { Box } from "@mui/material";
 
 type EditProfileType = {
   submitEditProfile: (user: FormData) => void;
 };
 
-export default function EditProfile({
-  submitEditProfile
-}: EditProfileType) {
+export default function EditProfile({ submitEditProfile }: EditProfileType) {
   const profileCtx = useContext(ProfileContext);
-  const { editUser, showEditModal, setShowEditModal } = profileCtx as ProfileContextType;
+  const { editUser, showEditModal, setShowEditModal } =
+    profileCtx as ProfileContextType;
 
   const validationSchema = Yup.object({
     name: Yup.string().required("Name is required"),
@@ -33,40 +33,41 @@ export default function EditProfile({
 
   return (
     <>
-      <Formik
-        initialValues={{
-          name: editUser?.name,
-          email: editUser?.email,
-          phone: editUser?.phone,
-          address: editUser?.address?.city,
-          website: editUser?.website,
-          company: editUser?.company?.name,
+      <Dialog
+        open={!!showEditModal}
+        onClose={() => setShowEditModal && setShowEditModal(false)}
+        sx={{
+          "& .MuiPaper-root": {
+            width: "100%",
+          },
+          "& div.MuiDialogContent-root": {
+            paddingTop: "1.5rem",
+          },
         }}
-        onSubmit={(values) => {
-          submitEditProfile(values);
-        }}
-        validationSchema={validationSchema}
       >
-        {(props: FormikProps<FormData>) => (
-          <Dialog
-            open={!!showEditModal}
-            onClose={() => setShowEditModal && setShowEditModal(false)}
-            sx={{
-              "& .MuiPaper-root": {
-                width: "100%",
-              },
-              "& div.MuiDialogContent-root": {
-                paddingTop: "1.5rem",
-              },
+        <DialogTitle>
+          <Typography>Edit Profile</Typography>
+        </DialogTitle>
+        <DialogContent>
+          <Formik
+            initialValues={{
+              name: editUser?.name,
+              email: editUser?.email,
+              phone: editUser?.phone,
+              address: editUser?.address?.city,
+              website: editUser?.website,
+              company: editUser?.company?.name,
             }}
+            onSubmit={(values) => {
+              submitEditProfile(values);
+            }}
+            validationSchema={validationSchema}
           >
-            <DialogTitle>
-              <Typography>
-                Edit Profile
-              </Typography>
-            </DialogTitle>
-            <DialogContent>
-              <Form className="flex flex-col gap-6">
+            {(props: FormikProps<FormData>) => (
+              <form
+                onSubmit={props.handleSubmit}
+                className="flex flex-col gap-6"
+              >
                 <FormField
                   label="Name"
                   inputId="name"
@@ -75,7 +76,11 @@ export default function EditProfile({
                   value={props.values.name}
                   onBlur={props.handleBlur}
                 />
-                <ErrorMessage name="name" component="span" className="text-red-500 text-sm"/>
+                <ErrorMessage
+                  name="name"
+                  component="span"
+                  className="text-red-500 text-sm"
+                />
                 <FormField
                   label="Email"
                   inputId="email"
@@ -84,7 +89,11 @@ export default function EditProfile({
                   value={props.values.email}
                   onBlur={props.handleBlur}
                 />
-                <ErrorMessage name="email" component="span" className="text-red-500 text-sm"/>
+                <ErrorMessage
+                  name="email"
+                  component="span"
+                  className="text-red-500 text-sm"
+                />
                 <FormField
                   label="Phone"
                   inputId="phone"
@@ -93,7 +102,11 @@ export default function EditProfile({
                   value={props.values.phone}
                   onBlur={props.handleBlur}
                 />
-                <ErrorMessage name="phone" component="span" className="text-red-500 text-sm"/>
+                <ErrorMessage
+                  name="phone"
+                  component="span"
+                  className="text-red-500 text-sm"
+                />
                 <FormField
                   label="Address"
                   inputId="address"
@@ -102,7 +115,11 @@ export default function EditProfile({
                   value={props.values.address}
                   onBlur={props.handleBlur}
                 />
-                <ErrorMessage name="address" component="span" className="text-red-500 text-sm"/>
+                <ErrorMessage
+                  name="address"
+                  component="span"
+                  className="text-red-500 text-sm"
+                />
                 <FormField
                   label="Website"
                   inputId="website"
@@ -111,7 +128,11 @@ export default function EditProfile({
                   value={props.values.website}
                   onBlur={props.handleBlur}
                 />
-                <ErrorMessage name="website" component="span" className="text-red-500 text-sm"/>
+                <ErrorMessage
+                  name="website"
+                  component="span"
+                  className="text-red-500 text-sm"
+                />
                 <FormField
                   label="Company"
                   inputId="company"
@@ -120,18 +141,25 @@ export default function EditProfile({
                   value={props.values.company}
                   onBlur={props.handleBlur}
                 />
-                <ErrorMessage name="company" component="span" className="text-red-500 text-sm"/>
-              </Form>
-            </DialogContent>
-            <DialogActions>
-              <Button type="submit">Submit</Button>
-              <Button type="reset" onClick={props.handleReset}>
-                Reset
-              </Button>
-            </DialogActions>
-          </Dialog>
-        )}
-      </Formik>
+                <ErrorMessage
+                  name="company"
+                  component="span"
+                  className="text-red-500 text-sm"
+                />
+                <Box
+                  component="div"
+                  sx={{ display: "flex", justifyContent: "flex-end" }}
+                >
+                  <Button type="submit">Submit</Button>
+                  <Button type="reset" onClick={props.handleReset}>
+                    Reset
+                  </Button>
+                </Box>
+              </form>
+            )}
+          </Formik>
+        </DialogContent>
+      </Dialog>
     </>
   );
 }

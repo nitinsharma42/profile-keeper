@@ -5,7 +5,6 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 
-import "./ConfirmModal.css";
 import { useContext } from "react";
 import { ProfileContext, ProfileContextType } from "../../../pages/Profile";
 import { User } from "../../../types/Users";

@@ -10,7 +10,11 @@ function App() {
   });
 
   if (loading) {
-    return <Loader />;
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <Loader />
+      </div>
+    );
   }
 
   if (error) {

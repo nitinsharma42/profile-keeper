@@ -4,7 +4,7 @@ import { User, FormData } from "../types/Users";
 import ProfileCard from "../components/Card/ProfileCard";
 import EditProfile from "../components/modals/EditProfile/EditProfile";
 import ConfirmModal from "../components/modals/ConfirmModal/ConfirmModal";
-import "./Profile.css";
+import { Grid } from "@mui/material";
 
 export type ProfileContextType = {
   users: UserResponse | [];
@@ -23,7 +23,7 @@ export default function Profile({ data }: { data: UserResponse | [] }) {
   const [editUser, setEditUser] = useState<User>({} as User);
   const handleProfileEdit = (user: User) => {
     setEditUser(user);
-    setShowEditModal(true)
+    setShowEditModal(true);
   };
 
   const handleDeleteProfile = (user: User) => {
@@ -34,12 +34,13 @@ export default function Profile({ data }: { data: UserResponse | [] }) {
   const renderUsersCard = useCallback(() => {
     return users?.map((user: User) => {
       return (
-        <ProfileCard
-          user={user}
-          key={user.id}
-          handleProfileEdit={handleProfileEdit}
-          handleDeleteProfile={handleDeleteProfile}
-        />
+        <Grid item xs={12} sm={6} md={4} lg={3} key={user.id}>
+          <ProfileCard
+            user={user}
+            handleProfileEdit={handleProfileEdit}
+            handleDeleteProfile={handleDeleteProfile}
+          />
+        </Grid>
       );
     });
   }, [users]);
@@ -76,16 +77,14 @@ export default function Profile({ data }: { data: UserResponse | [] }) {
         setUsers,
         setShowEditModal,
         setShowDeleteModal,
-        editUser
+        editUser,
       }}
     >
-      <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <Grid container spacing={2}>
         {renderUsersCard()}
-      </section>
+      </Grid>
       {showDeleteModal && <ConfirmModal deleteProfile={deleteProfile} />}
-      {showEditModal && <EditProfile
-        submitEditProfile={submitEditProfile}
-      />}
+      {showEditModal && <EditProfile submitEditProfile={submitEditProfile} />}
     </ProfileContext.Provider>
   );
 }
